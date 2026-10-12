@@ -1,10 +1,15 @@
+<<<<<<< HEAD
 import cloudscraper
 import csv
+=======
+import requests
+>>>>>>> 9845c3e72c495b3dcaa65d1827885d3e2ca56a74
 
 URL = "https://fantasy.premierleague.com/api/bootstrap-static/"
 
 
 def fetch_fpl_data():
+<<<<<<< HEAD
     scraper = cloudscraper.create_scraper(browser={
         'browser': 'chrome',
         'platform': 'windows',
@@ -54,3 +59,23 @@ if all_players:
                     [pos_name, rank, player['name'], player['price'], player['total_points'], player['roi']])
 
     print(f"\nFichier complet exporté avec succès dans {filename}")
+=======
+    response = requests.get(URL)
+
+    if response.status_code == 200:
+        data = response.json()
+
+        players = data['elements']
+
+        print(f"Connection successful! Loaded {len(players)} players into memory.")
+        print("\nKeys available for a single player:")
+        print(list(players[0].keys())[:10])
+
+        return players
+    else:
+        print(f"API Connection Failed. HTTP Status: {response.status_code}")
+        return None
+
+
+all_players = fetch_fpl_data()
+>>>>>>> 9845c3e72c495b3dcaa65d1827885d3e2ca56a74
